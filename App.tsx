@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { NavigationContainer } from "@react-navigation/native"
+import { StatusBar } from "expo-status-bar"
+import Help from "./src/screens/Help"
+import Home from "./src/screens/Home"
+import Settings from "./src/screens/Settings"
+import Header from "./src/components/Header"
+
+const TabStack = createBottomTabNavigator()
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+	return (
+		<NavigationContainer>
+			<StatusBar style="dark" />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+			<TabStack.Navigator
+				initialRouteName="Home"
+				screenOptions={{
+					header: () => <Header />,
+				}}
+			>
+				<TabStack.Screen name="Home" component={Home} />
+				<TabStack.Screen
+					name="Settings"
+					component={Settings}
+				/>
+				<TabStack.Screen name="Help" component={Help} />
+			</TabStack.Navigator>
+		</NavigationContainer>
+	)
+}
